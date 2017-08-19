@@ -1,13 +1,69 @@
 @import 'variables.less';
 
 @import './sub-styles/book.less';
+@import './sub-styles/cardBook.less';
 
 *{
 	padding: 0;
 	margin: 0;
 }
 
-#outter{
+body{
 	background-color: @bgColor;
+}
+
+li{
+	list-style: none;
+}
+
+#outter{
+	width: 90%;
+	margin: 0 auto;
+}
+
+.shotCard{
+	.recordOutter{
+
+		line-height: 40px;
+		margin-top: 10px;
+
+		input{
+			height: 24px;
+			width: 200px;
+			padding: 5px;
+			font-size: 20px;
+
+			border: none;
+		}
+		button{
+			height: 36px;
+			width: 60px;
+			border: none;
+			border-radius: 3px;
+			background-color: rgba(125,177,38,0.6);
+			color: #fff;
+
+			margin-left: 5px;
+		}
+	}
+
+	&>button{
+		display: block;
+		height: 100px;
+		width: 60%;
+		margin: 5px auto;
+
+		border: none;
+		border-radius: 5px;
+		background-color: rgba(90,38,177,.6);
+
+		font-size: 36px;
+		color: #fff;
+
+		span{
+			display: block;
+			font-size: 18px;
+		}
+	}
 }
 

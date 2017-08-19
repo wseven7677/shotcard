@@ -40,22 +40,22 @@ class Book extends React.Component {
 
     	if(this.props.theClsName === 'historyBook'){
 			while(theContents.length){
-	    		tmp = theContents.shift();
+	    		tmp = theContents.pop();
 	    		contents.push(<li>{tmp.theCard}，{tmp.theTime}，{tmp.theNote}</li>); 
 	    	}
-	    	// theClsName = 'historyBook';
 		}else{
 			while(theContents.length){
 	    		tmp = theContents.shift();
 	    		contents.push(<li>{tmp.theNote}，{tmp.theTime}</li>); 
 	    	}
-	    	// theClsName = 'recordBook';
 		}
 
-        return <div className={this.props.theClsName}>
-        	<span className='sp-dtl' onClick={this.handleClick.bind(this)}>点击查看详情</span>
-        	<span className='sp-del' onClick={this.handleClick.bind(this)}>点击清空</span>
-	        <ul>{contents}</ul>
+        return <div className='book'>
+	        <div className={this.props.theClsName}>
+	        	<span className='sp-dtl' onClick={this.handleClick.bind(this)}>点击查看详情</span>
+	        	<span className='sp-del' onClick={this.handleClick.bind(this)}>点击清空</span>
+		        <ul>{contents}</ul>
+	        </div>
         </div>;
     }
 }

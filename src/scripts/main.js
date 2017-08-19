@@ -4,6 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Book from './sub-scripts/Book.jsx';
+import CardBook from './sub-scripts/CardBook.jsx';
+import shot from './sub-scripts/shot.js';
+import cardBookHistory from '../datas/cardBookHistory.js';
 
 class ShotCard extends React.Component {
 
@@ -20,7 +23,13 @@ class ShotCard extends React.Component {
 		if(!localStorage.getItem('shotcard-rcd')){
 			localStorage.setItem('shotcard-rcd','[]');
 		}
-		
+		if(!localStorage.getItem('shotcard-card')){
+			if(confirm('是否导入已有进度？')){
+				localStorage.setItem('shotcard-card',cardBookHistory);
+			}else{
+				localStorage.setItem('shotcard-card',[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]);
+			}
+		}
 	}
 
 	handleClick(event) {
@@ -30,10 +39,11 @@ class ShotCard extends React.Component {
 				theCard: ''
 			},
 			inputTime,
+			localCard,
 			localHistory,
 			localRecords = JSON.parse(localStorage.getItem('shotcard-rcd'));
 
-		switch(event.target.id) {
+		switch(event.target.className) {
 			case 'btnSubmit':
 				if($('.recordOutter>input').val() !== ''){
 					inputTime = new Date();
@@ -54,12 +64,18 @@ class ShotCard extends React.Component {
 					inputTime = new Date();
 					inputMsg.theTime = inputTime.toString().substring(0,24);
 
-					inputMsg.theCard = Math.floor(Math.random()*10);
+					var shotResult = shot();
+					inputMsg.theCard = shotResult.card;
 
 					localHistory = JSON.parse(localStorage.getItem('shotcard-his'));
+					localCard = localStorage.getItem('shotcard-card').split(',');
 					localHistory.push(inputMsg);
-					localStorage.setItem('shotcard-his',JSON.stringify(localHistory));
+					localCard[shotResult.id]++;
+
 					localStorage.setItem('shotcard-rcd',JSON.stringify(localRecords));
+					localStorage.setItem('shotcard-his',JSON.stringify(localHistory));
+					localStorage.setItem('shotcard-card',localCard);
+					
 					this.setState({
 						btn: Math.random()
 					});
@@ -78,12 +94,16 @@ class ShotCard extends React.Component {
 
         return <div className='shotCard'>
 	        <div className="recordOutter">
-	        	<input type='text' placeholder='在此处输入缘由'></input>
-	        	<button id='btnSubmit' onClick={this.handleClick.bind(this)}>提交</button>
+	        	<input type='text' placeholder='在此处输入注册理由'></input>
+	        	<button className='btnSubmit' onClick={this.handleClick.bind(this)}>提交</button>
 	        	<Book theClsName='recordBook' theContents={localRcd} />
         	</div>
-        	<button id='btnShot' onClick={this.handleClick.bind(this)}>来一发！{localRcd.length}</button>
+        	<button className='btnShot' onClick={this.handleClick.bind(this)}>
+        		抽
+        		<span>（还有{localRcd.length}次）</span>
+        	</button>
 	        <Book theClsName='historyBook' theContents={localHis}/>
+	        <CardBook />
         </div>;
     }
 }
