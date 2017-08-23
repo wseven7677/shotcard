@@ -30,6 +30,9 @@ class ShotCard extends React.Component {
 				localStorage.setItem('shotcard-card',[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]);
 			}
 		}
+		if(!localStorage.getItem('shotcard-special-count')){
+			localStorage.setItem('shotcard-special-count',0);
+		}
 	}
 
 	handleClick(event) {
