@@ -4,7 +4,7 @@ var shot = function(){
 
 	var rnd,
 		card = '(nothing)',
-		theId,
+		theId = null,
 		spCount = localStorage.getItem('shotcard-special-count');
 
 	if(spCount === '9'){
@@ -16,7 +16,7 @@ var shot = function(){
 	}
 
 	cardCollection.forEach(function(value,index){
-		if(rnd > value.from && rnd < value.to){
+		if(rnd >= value.from && rnd <= value.to){
 			card = value.card;
 			theId = index;
 		}

@@ -8,6 +8,9 @@ import CardBook from './sub-scripts/CardBook.jsx';
 import shot from './sub-scripts/shot.js';
 import cardBookHistory from '../datas/cardBookHistory.js';
 
+var versionCode = '1.2.0',
+	versionLog = 'fix shot.';
+
 class ShotCard extends React.Component {
 
 	constructor(props) {
@@ -32,6 +35,12 @@ class ShotCard extends React.Component {
 		}
 		if(!localStorage.getItem('shotcard-special-count')){
 			localStorage.setItem('shotcard-special-count',0);
+		}
+		if(!localStorage.getItem('shotcard-version-control')){
+			localStorage.setItem('shotcard-version-control',versionCode);
+		}else if(localStorage.getItem('shotcard-version-control') !== versionCode){
+			alert('检测到新版本，已自动更新。(from '+localStorage.getItem('shotcard-version-control')+' to '+versionCode+'),LOG:'+versionLog);
+			localStorage.setItem('shotcard-version-control',versionCode);
 		}
 	}
 
@@ -73,7 +82,9 @@ class ShotCard extends React.Component {
 					localHistory = JSON.parse(localStorage.getItem('shotcard-his'));
 					localCard = localStorage.getItem('shotcard-card').split(',');
 					localHistory.push(inputMsg);
-					localCard[shotResult.id]++;
+					if(shotResult.id !== null){
+						localCard[shotResult.id]++;
+					}
 
 					localStorage.setItem('shotcard-rcd',JSON.stringify(localRecords));
 					localStorage.setItem('shotcard-his',JSON.stringify(localHistory));
@@ -96,6 +107,9 @@ class ShotCard extends React.Component {
     		localRcd = JSON.parse(localStorage.getItem('shotcard-rcd'));
 
         return <div className='shotCard'>
+        	<div className='version-control'>
+        		version:{versionCode}
+        	</div>
 	        <div className="recordOutter">
 	        	<input type='text' placeholder='在此处输入注册理由'></input>
 	        	<button className='btnSubmit' onClick={this.handleClick.bind(this)}>提交</button>
