@@ -1,6 +1,7 @@
 import React from 'react';
 
 import cardCollection from '../../datas/cardCollection.js';
+import rareColor from '../../datas/rareColor.js';
 
 class CardBook extends React.Component {
 	render() {
@@ -10,32 +11,18 @@ class CardBook extends React.Component {
 			liStyle;
 
 		cardCollection.forEach(function(value,index){
+
+			if(value.rare > 4 || value.rare < 0){
+				console.log('错误的value.rare');
+				return;
+			}
+
+			liStyle = {color: rareColor.p8[value.rare]};
+
 			if(localCard[index] !== '-1'){
-				switch(value.to - value.from + 1){
-					case 80:
-						liStyle = {backgroundColor: 'rgba(0,0,0,.2)',color: 'rgba(0,0,0,.8)'};
-						break;
-					case 60:
-						liStyle = {backgroundColor: 'rgba(53,224,73,.2)',color: 'rgba(53,224,73,.8)'};
-						break;
-					case 40:
-						liStyle = {backgroundColor: 'rgba(41,155,241,.2)',color: 'rgba(41,155,241,.8)'};
-						break;
-					case 20:
-						liStyle = {backgroundColor: 'rgba(183,41,214,.2)',color: 'rgba(183,41,214,.8)'};
-						break;
-					case 10:
-						liStyle = {backgroundColor: 'rgba(240,154,19,.2)',color: 'rgba(240,154,19,.8)'};
-						break;
-					default:
-						console.log('抽到的句子范围有问题。');
-				}
-			}else{
-				liStyle = {};
+				liStyle = {backgroundColor: rareColor.p2[value.rare], color: rareColor.p8[value.rare]};
 			}
-			if(index == 3 && localCard[index] !== '-1'){
-				liStyle = {backgroundColor: 'rgba(41,155,241,.2)',color: 'rgba(41,155,241,.8)'};
-			}
+
 			contents.push(<li style={liStyle}>{value.card}（{localCard[index]}）</li>);
 
 		});

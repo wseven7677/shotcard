@@ -2,7 +2,7 @@ var htmlWebpackPlugin = require('html-webpack-plugin'),
     path = require('path'),
 
     config = {
-      entry: './src/scripts/main.js',
+      entry: './src/scripts/main.jsx',
       output: {
         path: path.resolve(__dirname,'build'),
         filename: 'bundle.js',
