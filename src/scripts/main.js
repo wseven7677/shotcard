@@ -8,8 +8,8 @@ import CardBook from './sub-scripts/CardBook.jsx';
 import shot from './sub-scripts/shot.js';
 import cardBookHistory from '../datas/cardBookHistory.js';
 
-var versionCode = '1.2.0',
-	versionLog = 'fix shot.';
+var versionCode = '1.2.1',
+	versionLog = 'fix styles.';
 
 class ShotCard extends React.Component {
 
