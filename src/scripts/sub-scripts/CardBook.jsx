@@ -33,7 +33,7 @@ class CardBook extends React.Component {
 			}else{
 				liStyle = {};
 			}
-			if(index == 3){
+			if(index == 3 && localCard[index] !== '-1'){
 				liStyle = {backgroundColor: 'rgba(41,155,241,.2)',color: 'rgba(41,155,241,.8)'};
 			}
 			contents.push(<li style={liStyle}>{value.card}（{localCard[index]}）</li>);
